@@ -3,8 +3,17 @@
 import React from 'react';
 import Writer from './writer.jsx';
 import RightColumn from './right_column.jsx';
+import BlogList from './blog_list.jsx';
 
 export default class Layout extends React.Component {
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            pageKey: window.DATA.PageKey
+        };
+    }
+
     render() {
         return (
             <div>
@@ -29,7 +38,13 @@ export default class Layout extends React.Component {
                     <div className="container">
                         <div className="row">
                             <div className="col-xs-8">
-                                <Writer />
+                                {(() => {
+                                    if (this.state.pageKey != "TOP") {
+                                        return <Writer />;
+                                    } else {
+                                        return <BlogList />;
+                                    }
+                                })()}
                             </div>
                             <div className="col-xs-4">
                                 <RightColumn />

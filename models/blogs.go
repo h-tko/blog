@@ -27,7 +27,7 @@ func (blog *Blog) FindById(id int) *Blog {
 
 func (blog *Blog) FindAll() []*Blog {
 	var blogs []*Blog
-	db.Where("is_show = ?", false).Find(&blogs)
+	db.Where("is_show = ?", true).Find(&blogs)
 
 	return blogs
 }
