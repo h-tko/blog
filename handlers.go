@@ -23,7 +23,7 @@ type TopResponse struct {
 
 func Top(c echo.Context) error {
 	blog := models.NewBlog()
-	blogs := blog.FindAll()
+	blogs := blog.FindList(10)
 
 	data := new(TopResponse)
 	data.Blogs = blogs
