@@ -51,5 +51,5 @@ func registBlog(c echo.Context) error {
 	blog := models.Blog{Title: c.FormValue("title"), Body: string(body), IsShow: c.FormValue("is_show") == "1", ReleaseDate: release_date}
 	models.RegistBlog(blog)
 
-	return c.JSON(http.StatusOK, blog)
+	return c.JSON(http.StatusOK, "success")
 }
