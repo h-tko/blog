@@ -17,7 +17,7 @@ export default class BlogList extends React.Component {
         var list = [];
 
         for (var i in this.state.blog_list) {
-            list.push(<BlogCard key={this.state.blog_list[i].Id} {...this.state.blog_list[i]} />);
+            list.push(<BlogCard key={i} {...this.state.blog_list[i]} />);
         }
 
         return (

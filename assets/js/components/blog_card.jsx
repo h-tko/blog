@@ -12,7 +12,7 @@ export default class BlogCard extends React.Component {
                             {this.props.Title} ({this.props.ReleaseDate})
                         </div>
                         <div className="panel-body">
-                            {this.props.Body}
+                            <span dangerouslySetInnerHTML={{__html: this.props.Body}} />
                         </div>
                     </div>
                 </div>

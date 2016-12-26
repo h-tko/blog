@@ -3,6 +3,7 @@
 import React from 'react';
 import { Link } from 'react-router';
 import Writer from './writer.jsx';
+import BlogDetail from './blog_detail.jsx';
 import RightColumn from './right_column.jsx';
 import BlogList from './blog_list.jsx';
 
@@ -38,7 +39,7 @@ export default class Layout extends React.Component {
                                 {this.props.children}
                             </div>
                             <div className="col-xs-4">
-                                <RightColumn />
+                                <RightColumn key="right-column" />
                             </div>
                         </div>
                     </div>
