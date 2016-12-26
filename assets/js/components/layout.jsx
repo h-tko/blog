@@ -1,6 +1,7 @@
 'use strict';
 
 import React from 'react';
+import { Link } from 'react-router';
 import Writer from './writer.jsx';
 import RightColumn from './right_column.jsx';
 import BlogList from './blog_list.jsx';
@@ -8,10 +9,6 @@ import BlogList from './blog_list.jsx';
 export default class Layout extends React.Component {
     constructor(props) {
         super(props);
-
-        this.state = {
-            pageKey: window.DATA.PageKey
-        };
     }
 
     render() {
@@ -27,8 +24,8 @@ export default class Layout extends React.Component {
                         </div>
                         <div className="navbar-collapse collapse" id="navbar-main">
                             <ul className="nav navbar-nav">
-                                <li className="active"><a href="#">LINK</a></li>
-                                <li><a href="#">LINK</a></li>
+                                <li className="active"><Link to="/">ブログ一覧</Link></li>
+                                <li><Link to="/write_blog">ブログを書く</Link></li>
                             </ul>
                         </div>
                     </div>
@@ -38,13 +35,7 @@ export default class Layout extends React.Component {
                     <div className="container">
                         <div className="row">
                             <div className="col-xs-8">
-                                {(() => {
-                                    if (this.state.pageKey != "TOP") {
-                                        return <Writer />;
-                                    } else {
-                                        return <BlogList />;
-                                    }
-                                })()}
+                                {this.props.children}
                             </div>
                             <div className="col-xs-4">
                                 <RightColumn />

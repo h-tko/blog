@@ -33,3 +33,9 @@ func (blog *Blog) FindList(limit int) []*Blog {
 
 	return blogs
 }
+
+func RegistBlog(blog Blog) {
+	db.NewRecord(blog)
+	db.Create(&blog)
+	db.Save(&blog)
+}

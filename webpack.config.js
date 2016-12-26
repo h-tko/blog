@@ -1,10 +1,12 @@
 var path = require('path');
 
 module.exports = {
-    entry: path.join(__dirname, 'assets/js/app.jsx'),
+    entry: {
+        "bundle": path.join(__dirname, 'assets/js/app.jsx'),
+    },
     output: {
         path: path.join(__dirname, 'assets/dist'),
-        filename: 'bundle.js'
+        filename: "[name].js"
     },
     cache: true,
     module: {
