@@ -30,7 +30,7 @@ export default class Writer extends React.Component {
             params.release_date = params.release_date.format('YYYY/MM/DD');
             console.log(params);
 
-            $.post("/regist_blog", params, (result) => {
+            $.post("/regist_blog?ajax=on", params, (result) => {
                 if (result === "success") {
                     alert("登録しました");
 

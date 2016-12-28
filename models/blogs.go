@@ -21,10 +21,8 @@ func NewBlog() *Blog {
 	return new(Blog)
 }
 
-func (blog *Blog) FindById(id int) *Blog {
-	db.Where("is/show = ?", true).First(&blog, id)
-
-	return blog
+func (blog *Blog) FindById(id int) {
+	db.Where("is_show = ?", true).First(&blog, id)
 }
 
 func (blog *Blog) FindList(limit int) []*Blog {

@@ -1,4 +1,4 @@
-package main
+package controllers
 
 import (
 	"github.com/h-tko/blog/libraries"
@@ -8,37 +8,14 @@ import (
 	"time"
 )
 
-func RoutesRegister(e *echo.Echo) {
-	e.GET("/", top)
-	e.GET("/write_blog", writeBlog)
-	e.POST("/regist_blog", registBlog)
+type WriteController struct {
 }
 
-type ResponseBase struct {
-	PageKey string
-}
-
-type TopResponse struct {
-	ResponseBase
-	Blogs []*models.Blog
-}
-
-func top(c echo.Context) error {
-	blog := models.NewBlog()
-	blogs := blog.FindList(10)
-
-	data := new(TopResponse)
-	data.Blogs = blogs
-	data.PageKey = "TOP"
-
-	return c.Render(http.StatusOK, "index.html", map[string]interface{}{"Data": data})
-}
-
-func writeBlog(c echo.Context) error {
+func (this WriteController) Write(c echo.Context) error {
 	return c.Render(http.StatusOK, "index.html", map[string]interface{}{"Data": nil})
 }
 
-func registBlog(c echo.Context) error {
+func (this WriteController) Regist(c echo.Context) error {
 
 	release_date, err := time.Parse("2006/01/02", c.FormValue("release_date"))
 

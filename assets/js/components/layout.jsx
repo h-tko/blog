@@ -2,19 +2,25 @@
 
 import React from 'react';
 import { Link } from 'react-router';
-import Writer from './writer.jsx';
-import BlogDetail from './blog_detail.jsx';
 import RightColumn from './right_column.jsx';
-import BlogList from './blog_list.jsx';
 
 export default class Layout extends React.Component {
     constructor(props) {
         super(props);
+
+        this.state = {
+            blog_list: null
+        };
+    }
+
+    setBlogList(blog_list) {
+        this.setState({blog_list: blog_list});
     }
 
     render() {
         return (
             <div>
+                <base href="/" />
                 <nav className="navbar navbar-default">
                     <div className="container">
                         <div className="navbar-header">
@@ -25,8 +31,7 @@ export default class Layout extends React.Component {
                         </div>
                         <div className="navbar-collapse collapse" id="navbar-main">
                             <ul className="nav navbar-nav">
-                                <li className="active"><Link to="/">ブログ一覧</Link></li>
-                                <li><Link to="/write_blog">ブログを書く</Link></li>
+                                <li className="active"><Link to="/">TOP</Link></li>
                             </ul>
                         </div>
                     </div>

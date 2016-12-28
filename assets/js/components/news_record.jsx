@@ -1,12 +1,13 @@
 'use strict';
 
 import React from 'react';
+import { Router, Route, Link } from 'react-router';
 
 export default class NewsRecord extends React.Component {
     render() {
-        var url = "/detail/" + this.props.Id;
+        var url = "/detail/" + this.props.ID + "?ajax=on";
         return (
-            <li><a href={url}>{this.props.Title}</a></li>
+            <li><Link to={url}>{this.props.Title}</Link></li>
         );
     }
 }

@@ -1,6 +1,7 @@
 'use strict';
 
 import React from 'react';
+import $ from 'jquery';
 import BlogCard from './blog_card.jsx';
 
 export default class BlogList extends React.Component {
@@ -8,9 +9,28 @@ export default class BlogList extends React.Component {
         super(props);
 
         this.state = {
-            blog_list: window.DATA.Blogs
+            blog_list: {}
         };
+    }
 
+    componentDidMount() {
+      this.requestBlogList();
+    }
+
+    requestBlogList() {
+        $.ajax({
+            type: "GET",
+            url: "/?ajax=on",
+        }).done((data) => {
+
+            if (data.Data) {
+                this.setState({blog_list: data.Data.Blogs})
+            } else {
+                this.setState({blog_list: {}});
+            }
+        }).fail((err) => {
+            console.log(err);
+        });
     }
 
     render() {

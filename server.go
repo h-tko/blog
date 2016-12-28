@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"github.com/h-tko/blog/models"
 	"github.com/labstack/echo"
+	"github.com/labstack/echo/middleware"
 	"github.com/pelletier/go-toml"
 	"html/template"
 	"io"
@@ -23,6 +24,11 @@ func main() {
 	defer models.CloseDatabase()
 
 	e := echo.New()
+	e.Use(middleware.CSRF())
+	e.Use(middleware.Logger())
+	e.Use(middleware.Recover())
+	e.Pre(middleware.AddTrailingSlash())
+
 	e.Static("/static", "assets")
 
 	t := &Template{
@@ -31,12 +37,13 @@ func main() {
 
 	e.Renderer = t
 
-	RoutesRegister(e)
+	routes(e)
 
 	config, err := toml.LoadFile("./config/app.toml")
 
 	if err != nil {
-		panic(err)
+		e.Logger.Fatal(err)
+		return
 	}
 
 	port := config.Get("application.port").(string)
