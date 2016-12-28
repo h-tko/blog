@@ -79,11 +79,11 @@ func toTomlValue(item interface{}, indent int) string {
 	case time.Time:
 		return tab + value.Format(time.RFC3339)
 	case []interface{}:
-		values := []string{}
+		result := tab + "[\n"
 		for _, item := range value {
-			values = append(values, toTomlValue(item, 0))
+			result += toTomlValue(item, indent+2) + ",\n"
 		}
-		return "[" + strings.Join(values, ",") + "]"
+		return result + tab + "]"
 	case nil:
 		return ""
 	default:
@@ -92,7 +92,7 @@ func toTomlValue(item interface{}, indent int) string {
 }
 
 // Recursive support function for ToString()
-// Outputs a tree, using the provided keyspace to prefix table names
+// Outputs a tree, using the provided keyspace to prefix group names
 func (t *TomlTree) toToml(indent, keyspace string) string {
 	resultChunks := []string{}
 	for k, v := range t.values {

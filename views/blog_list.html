@@ -1,0 +1,13 @@
+{{define "content"}}
+{{range $index, $elem := .BlogList}}
+<a href="/detail/{{$elem.ID}}">
+    <div class="app-card-wide mdl-card mdl-shadow--2dp">
+        <div class="mdl-card__title">
+            <h2 class="mdl-card__title-text">
+                {{$elem.Title}}{{if $elem.ReleaseDate}}({{$elem.ReleaseDate}}){{end}}
+            </h2>
+        </div>
+    </div>
+</a>
+{{end}}
+{{end}}

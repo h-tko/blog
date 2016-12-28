@@ -42,7 +42,7 @@ import (
 	"errors"
 	"fmt"
 	"io"
-	slog "log"
+	"log"
 	"net/http"
 	"path"
 	"reflect"
@@ -51,7 +51,7 @@ import (
 	"time"
 
 	"github.com/labstack/gommon/color"
-	"github.com/labstack/gommon/log"
+	glog "github.com/labstack/gommon/log"
 	"github.com/tylerb/graceful"
 	"golang.org/x/crypto/acme/autocert"
 )
@@ -59,27 +59,23 @@ import (
 type (
 	// Echo is the top-level framework instance.
 	Echo struct {
-		DisableHTTP2     bool
-		Debug            bool
-		HTTPErrorHandler HTTPErrorHandler
-		Binder           Binder
-		Validator        Validator
-		Renderer         Renderer
-		AutoTLSManager   autocert.Manager
-		ReadTimeout      time.Duration
-		WriteTimeout     time.Duration
-		ShutdownTimeout  time.Duration
-		Color            *color.Color
-		Logger           Logger
-		stdLogger        *slog.Logger
-		server           *graceful.Server
-		tlsServer        *graceful.Server
-		premiddleware    []MiddlewareFunc
-		middleware       []MiddlewareFunc
-		maxParam         *int
-		router           *Router
-		notFoundHandler  HandlerFunc
-		pool             sync.Pool
+		DisableHTTP2 bool
+		Debug        bool
+		HTTPErrorHandler
+		Binder          Binder
+		Renderer        Renderer
+		AutoTLSManager  autocert.Manager
+		ShutdownTimeout time.Duration
+		Color           *color.Color
+		Logger          Logger
+		server          *graceful.Server
+		tlsServer       *graceful.Server
+		premiddleware   []MiddlewareFunc
+		middleware      []MiddlewareFunc
+		maxParam        *int
+		router          *Router
+		notFoundHandler HandlerFunc
+		pool            sync.Pool
 	}
 
 	// Route contains a handler and information for matching against requests.
@@ -92,7 +88,7 @@ type (
 	// HTTPError represents an error that occurred while handling a request.
 	HTTPError struct {
 		Code    int
-		Message interface{}
+		Message string
 	}
 
 	// MiddlewareFunc defines a function to process middleware.
@@ -106,7 +102,7 @@ type (
 
 	// Validator is the interface that wraps the Validate function.
 	Validator interface {
-		Validate(i interface{}) error
+		Validate() error
 	}
 
 	// Renderer is the interface that wraps the Render function.
@@ -221,7 +217,6 @@ var (
 	ErrUnauthorized                = NewHTTPError(http.StatusUnauthorized)
 	ErrMethodNotAllowed            = NewHTTPError(http.StatusMethodNotAllowed)
 	ErrStatusRequestEntityTooLarge = NewHTTPError(http.StatusRequestEntityTooLarge)
-	ErrValidatorNotRegistered      = errors.New("validator not registered")
 	ErrRendererNotRegistered       = errors.New("renderer not registered")
 	ErrInvalidRedirectCode         = errors.New("invalid redirect status code")
 	ErrCookieNotFound              = errors.New("cookie not found")
@@ -245,14 +240,13 @@ func New() (e *Echo) {
 			Prompt: autocert.AcceptTOS,
 		},
 		ShutdownTimeout: 15 * time.Second,
-		Logger:          log.New("echo"),
+		Logger:          glog.New("echo"),
 		maxParam:        new(int),
 		Color:           color.New(),
 	}
 	e.HTTPErrorHandler = e.DefaultHTTPErrorHandler
-	e.Binder = &DefaultBinder{}
-	e.Logger.SetLevel(log.OFF)
-	e.stdLogger = slog.New(e.Logger.Output(), e.Logger.Prefix()+": ", 0)
+	e.Binder = &binder{}
+	e.Logger.SetLevel(glog.OFF)
 	e.pool.New = func() interface{} {
 		return e.NewContext(nil, nil)
 	}
@@ -277,36 +271,24 @@ func (e *Echo) Router() *Router {
 	return e.router
 }
 
-// DefaultHTTPErrorHandler is the default HTTP error handler. It sends a JSON response
-// with status code.
+// DefaultHTTPErrorHandler invokes the default HTTP error handler.
 func (e *Echo) DefaultHTTPErrorHandler(err error, c Context) {
-	var (
-		code = http.StatusInternalServerError
-		msg  interface{}
-	)
-
+	code := http.StatusInternalServerError
+	msg := http.StatusText(code)
 	if he, ok := err.(*HTTPError); ok {
 		code = he.Code
 		msg = he.Message
-	} else {
+	}
+	if e.Debug {
 		msg = err.Error()
 	}
-	if reflect.TypeOf(msg).Kind() != reflect.Ptr {
-		msg = Map{"message": msg}
-	}
-
 	if !c.Response().Committed {
 		if c.Request().Method == HEAD { // Issue #608
-			if err := c.NoContent(code); err != nil {
-				goto ERROR
-			}
+			c.NoContent(code)
 		} else {
-			if err := c.JSON(code, msg); err != nil {
-				goto ERROR
-			}
+			c.String(code, msg)
 		}
 	}
-ERROR:
 	e.Logger.Error(err)
 }
 
@@ -499,7 +481,7 @@ func (e *Echo) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	// Middleware
 	h := func(c Context) error {
 		method := r.Method
-		path := r.URL.EscapedPath()
+		path := r.URL.Path
 		e.router.Find(method, path, c)
 		h := c.Handler()
 		for i := len(e.middleware) - 1; i >= 0; i-- {
@@ -523,12 +505,7 @@ func (e *Echo) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 
 // Start starts the HTTP server.
 func (e *Echo) Start(address string) error {
-	return e.StartServer(&http.Server{
-		Addr:         address,
-		ReadTimeout:  e.ReadTimeout,
-		WriteTimeout: e.WriteTimeout,
-		ErrorLog:     e.stdLogger,
-	})
+	return e.StartServer(&http.Server{Addr: address})
 }
 
 // StartTLS starts the HTTPS server.
@@ -557,11 +534,8 @@ func (e *Echo) startTLS(address string, config *tls.Config) error {
 		config.NextProtos = append(config.NextProtos, "h2")
 	}
 	return e.StartServer(&http.Server{
-		Addr:         address,
-		ReadTimeout:  e.ReadTimeout,
-		WriteTimeout: e.WriteTimeout,
-		TLSConfig:    config,
-		ErrorLog:     e.stdLogger,
+		Addr:      address,
+		TLSConfig: config,
 	})
 }
 
@@ -571,7 +545,7 @@ func (e *Echo) StartServer(s *http.Server) error {
 	gs := &graceful.Server{
 		Server:  s,
 		Timeout: e.ShutdownTimeout,
-		Logger:  e.stdLogger,
+		Logger:  log.New(e.Logger.Output(), e.Logger.Prefix()+": ", 0),
 	}
 	if s.TLSConfig == nil {
 		e.server = gs
@@ -594,17 +568,17 @@ func (e *Echo) ShutdownTLS(timeout time.Duration) {
 }
 
 // NewHTTPError creates a new HTTPError instance.
-func NewHTTPError(code int, message ...interface{}) *HTTPError {
+func NewHTTPError(code int, msg ...interface{}) *HTTPError {
 	he := &HTTPError{Code: code, Message: http.StatusText(code)}
-	if len(message) > 0 {
-		he.Message = message[0]
+	if len(msg) > 0 {
+		he.Message = fmt.Sprint(msg...)
 	}
 	return he
 }
 
 // Error makes it compatible with `error` interface.
-func (he *HTTPError) Error() string {
-	return fmt.Sprintf("code=%d, message=%s", he.Code, he.Message)
+func (e *HTTPError) Error() string {
+	return e.Message
 }
 
 // WrapHandler wraps `http.Handler` into `echo.HandlerFunc`.

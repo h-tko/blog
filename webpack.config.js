@@ -2,7 +2,7 @@ var path = require('path');
 
 module.exports = {
     entry: {
-        "bundle": path.join(__dirname, 'assets/js/app.jsx'),
+        "bundle": path.join(__dirname, 'assets/js/app.js'),
     },
     output: {
         path: path.join(__dirname, 'assets/dist'),
@@ -17,11 +17,11 @@ module.exports = {
         }, {
             test: /\.(ttf|eot|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/, loader: 'file-loader',
         }, {
-            test: /\.js[x]?$/,
+            test: /\.js$/,
             exclude: /node_modules/,
             loader: 'babel',
             query: {
-                presets: ['react', 'es2015']
+                presets: ['es2015']
             }
         }, {
             test: /\.js$/,
@@ -33,7 +33,7 @@ module.exports = {
         configFile: './.eslintrc'
     },
     resolve: {
-        extensions: ['', '.js', '.jsx']
+        extensions: ['', '.js']
     },
     devtool: 'source-map'
 };

@@ -1,6 +1,7 @@
 package controllers
 
 import (
+	"fmt"
 	"github.com/h-tko/blog/models"
 	"github.com/labstack/echo"
 	"net/http"
@@ -12,18 +13,15 @@ type BlogDetailController struct {
 
 func (this BlogDetailController) Detail(c echo.Context) error {
 
-	if c.QueryParam("ajax") != "on" {
-		return c.Render(http.StatusOK, "index.html", map[string]interface{}{})
-	}
-
 	blog_id, err := strconv.Atoi(c.Param("blog_id"))
 
 	if err != nil {
+		fmt.Printf("%v", err)
 		return err
 	}
 
 	blog := models.NewBlog()
 	blog.FindById(blog_id)
 
-	return c.JSON(http.StatusOK, map[string]interface{}{"blog": blog})
+	return c.Render(http.StatusOK, "blog_detail.html", map[string]interface{}{"Blog": blog})
 }

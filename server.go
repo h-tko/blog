@@ -19,9 +19,12 @@ func (t *Template) Render(w io.Writer, name string, data interface{}, c echo.Con
 }
 
 func main() {
+	println("start application.")
 
 	models.InitDatabase()
 	defer models.CloseDatabase()
+
+	println("Echo framework build.")
 
 	e := echo.New()
 	e.Use(middleware.CSRF())
@@ -29,14 +32,16 @@ func main() {
 	e.Use(middleware.Recover())
 	e.Pre(middleware.AddTrailingSlash())
 
+	println("regist static dir.")
 	e.Static("/static", "assets")
 
 	t := &Template{
-		templates: template.Must(template.ParseGlob("views/*.html")),
+		templates: template.Must(template.New("").Funcs(TemplateHelpers).ParseGlob("views/*.html")),
 	}
 
 	e.Renderer = t
 
+	println("regist routing.")
 	routes(e)
 
 	config, err := toml.LoadFile("./config/app.toml")
@@ -48,5 +53,6 @@ func main() {
 
 	port := config.Get("application.port").(string)
 
+	println("start server.")
 	e.Logger.Fatal(e.Start(fmt.Sprintf(":%s", port)))
 }
