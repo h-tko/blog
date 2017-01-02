@@ -5,14 +5,21 @@ import (
 )
 
 var TemplateHelpers = template.FuncMap{
-	"raw":       htmlRaw,
-	"substring": substring,
+	"raw":      htmlRaw,
+	"mbsubstr": mbsubstr,
 }
 
 func htmlRaw(html string) template.HTML {
 	return template.HTML(html)
 }
 
-func substring(text string, from int, to int) string {
-	return string(text[from:to])
+func mbsubstr(text string, from int, to int) string {
+
+	rntext := []rune(text)
+
+	if len(rntext) <= to {
+		return text
+	}
+
+	return string(rntext[from:to])
 }
