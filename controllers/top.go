@@ -13,5 +13,5 @@ func (this TopController) Index(c echo.Context) error {
 	blog := models.NewBlog()
 	blogs := blog.FindList(10)
 
-	return c.Render(http.StatusOK, "index.html", map[string]interface{}{"BlogList": blogs})
+	return c.Render(http.StatusOK, "blog_list.html", map[string]interface{}{"BlogList": blogs})
 }

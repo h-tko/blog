@@ -1,4 +1,4 @@
-{{define "content"}}
+{{template "layout_bef" .}}
 {{range $index, $elem := .BlogList}}
 <a href="/detail/{{$elem.ID}}">
     <div class="app-card-wide mdl-card mdl-shadow--2dp">
@@ -7,7 +7,10 @@
                 {{$elem.Title}}{{if $elem.ReleaseDate}}({{$elem.ReleaseDate}}){{end}}
             </h2>
         </div>
+        <div class="mdl-card__supporting-text">
+            {{$elem.Body[0:10]}}
+        </div>
     </div>
 </a>
 {{end}}
-{{end}}
+{{template "layout_aft" .}}

@@ -1,4 +1,4 @@
-{{define "content"}}
+{{template "layout_bef" .}}
 <div class="app-card-wide mdl-card mdl-shadow--2dp">
     <div class="mdl-card__title">
         <h2 class="mdl-card__title-text">
@@ -9,4 +9,4 @@
         {{.Blog.Body}}
     </div>
 </div>
-{{end}}
+{{template "layout_aft" .}}
