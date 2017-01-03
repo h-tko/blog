@@ -11,6 +11,7 @@ type Blog struct {
 	Body        string
 	IsShow      bool
 	ReleaseDate time.Time
+	BlogCount   BlogCount
 }
 
 func (Blog) TableName() string {
@@ -22,7 +23,7 @@ func NewBlog() *Blog {
 }
 
 func (blog *Blog) FindById(id int) {
-	db.Where("is_show = ?", true).Where("release_date <= now()").First(&blog, id)
+	db.Where("is_show = ?", true).Where("release_date <= now()").Joins("inner join blog_counts on blogs.id = blog_counts.blog_id").First(&blog, id)
 }
 
 func (blog *Blog) FindPopularList(limit int) []*Blog {

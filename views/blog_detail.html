@@ -8,5 +8,11 @@
     <div class="mdl-card__supporting-text">
         {{.Blog.Body|raw}}
     </div>
+    <div class="mdl-card__menu">
+        <button type="button" class="mdl-button mdl-js-button mdl-button--fab mdl-button--colored mdl-button--accent">
+            <i class="material-icons">thumb_up</i>
+        </button>
+        <span class="fab-count">{{.Blog.BlogCount.GoodCount}}</span>
+    </div>
 </div>
 {{template "layout_aft" .}}
