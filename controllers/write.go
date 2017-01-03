@@ -12,7 +12,7 @@ type WriteController struct {
 }
 
 func (this WriteController) Write(c echo.Context) error {
-	return c.Render(http.StatusOK, "write.html", nil)
+	return c.Render(http.StatusOK, "write.html", map[string]interface{}{"Data": nil})
 }
 
 func (this WriteController) Regist(c echo.Context) error {
@@ -25,7 +25,7 @@ func (this WriteController) Regist(c echo.Context) error {
 
 	body := libraries.MarkdownToHtml(c.FormValue("body"))
 
-	blog := models.Blog{Title: c.FormValue("title"), Body: string(body), IsShow: c.FormValue("is_show") == "1", ReleaseDate: release_date}
+	blog := models.Blog{Title: c.FormValue("title"), Body: string(body), IsShow: true, ReleaseDate: release_date}
 	models.RegistBlog(blog)
 
 	blog_count := models.BlogCount{BlogId: blog.ID}

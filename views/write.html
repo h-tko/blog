@@ -1,26 +1,39 @@
 {{template "layout_bef" .}}
 <div class="app-card-wide mdl-card mdl-shadow--2dp">
     <div class="mdl-card__title">
-        <h2 class~"mdl-card__title-text">
+        <h2 class="mdl-card__title-text">
             ブログ登録
         </h2>
     </div>
     <div class="mdl-card__supporting-text">
-        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-            <input class="mdl-textfield__input" type="text" name="title" id="title">
-            <label class="mdl-textfield__label" for="title">タイトル</label>
-            <span class="mdl-textfield__error"></span>
+        <form name="form-blog">
+            <div class="mdl-grid">
+                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label abs-w-80">
+                    <input class="mdl-textfield__input" type="text" name="title" id="title">
+                    <label class="mdl-textfield__label" for="title">タイトル</label>
+                    <span class="mdl-textfield__error"></span>
+                </div>
+            </div>
+            <div class="mdl-grid">
+                <div class="mdl-textfield mdl-js-textfield abs-w-80">
+                    <textarea class="mdl-textfield__input" type="text" rows="30" id="body" name="body"></textarea>
+                    <label class="mdl-textfield__label" for="body">本文</label>
+                    <span class="mdl-textfield__error"></span>
+                </div>
+            </div>
+            <div class="mdl-grid">
+                <label>公開日</label>
+            </div>
+            <div class="mdl-grid">
+                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label ">
+                    <input type="text" class="mdl-textfield__input datepicker" name="release_date" id="release_date">
+                </div>
+            </div>
         </div>
-        <div class="mdl-textfield mdl-js-textfield">
-            <textarea class="mdl-textfield__input" type="text" rows="10" id="body"></textarea>
-            <label class="mdl-textfield__label" for="body">本文</label>
-            <span class="mdl-textfield__error"></span>
+        <div class="mdl-card__actions">
+            <button type="button" class="mdl-button mdl-button--raised mdl-js-button mdl-js-ripple-effect clear">クリア</button>
+            <button type="button" class="mdl-button mdl-button--raised mdl-button--colored mdl-js-button mdl-js-ripple-effect regist-blog">登録</button>
         </div>
-        <div><input type="text" class="timepicker"></div>
-    </div>
-    <div class="mdl-card__actions">
-        <button type="button" class~"mdl-button mdl-js-button mdl-js-ripple-effect">クリア</button>
-        <button type="button" class="mdl-button mdl-button-colored mdl-js-button mdl-js-ripple-effect">登録</button>
-    </div>
+    </form>
 </div>
 {{template "layout_aft" .}}

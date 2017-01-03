@@ -27,7 +27,7 @@ func main() {
 	println("Echo framework build.")
 
 	e := echo.New()
-	e.Use(middleware.CSRF())
+	//    e.Use(middleware.CSRF())
 	e.Use(middleware.Logger())
 	e.Use(middleware.Recover())
 	e.Pre(middleware.AddTrailingSlash())
