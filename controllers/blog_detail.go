@@ -25,3 +25,18 @@ func (this BlogDetailController) Detail(c echo.Context) error {
 
 	return c.Render(http.StatusOK, "blog_detail.html", map[string]interface{}{"Blog": blog})
 }
+
+func (this BlogDetailController) IncrementGood(c echo.Context) error {
+
+	blog_id, err := strconv.Atoi(c.QueryParam("blog_id"))
+
+	if err != nil {
+		fmt.Printf("%v", err)
+		return err
+	}
+
+	blog_count := models.NewBlogCount()
+	result_count := blog_count.IncrementGood(uint(blog_id))
+
+	return c.JSON(http.StatusOK, result_count)
+}

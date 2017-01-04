@@ -26,10 +26,10 @@ func (this WriteController) Regist(c echo.Context) error {
 	body := libraries.MarkdownToHtml(c.FormValue("body"))
 
 	blog := models.Blog{Title: c.FormValue("title"), Body: string(body), IsShow: true, ReleaseDate: release_date}
-	models.RegistBlog(blog)
+	models.RegistBlog(&blog)
 
-	blog_count := models.BlogCount{BlogId: blog.ID}
-	models.RegistBlogCount(blog_count)
+	blog_count := models.BlogCount{BlogID: blog.ID}
+	models.RegistBlogCount(&blog_count)
 
 	return c.JSON(http.StatusOK, "success")
 }

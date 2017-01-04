@@ -1,4 +1,4 @@
-require('material-design-lite/dist/material.deep_orange-amber.min.css');
+require('material-design-lite/dist/material.lime-deep_purple.min.css');
 require('material-design-lite/dist/material.min.js');
 require('../css/app.css');
 import hljs from 'highlight.js/lib/index.js';
@@ -24,6 +24,12 @@ $(function() {
     $("button.regist-blog").on('click', () => {
         sendWriteData();
     });
+
+    $("button.good").on('click', () => {
+        incrementGood();
+    });
+
+    getRightColumn();
 });
 
 const sendWriteData = () => {
@@ -34,8 +40,34 @@ const sendWriteData = () => {
             if (result === "success") {
                 alert("登録しました");
 
-                $("button.clear").torriger("click");
+                $("button.clear").trriger("click");
             }
         });
     }
 };
+
+const incrementGood = () => {
+    var id = $("#blog_id").val();
+
+    $.get("/increment_good/", {
+        blog_id: id
+    }, (result) => {
+        $(".good").prop("disabled", true);
+        $(".fab-count").text(result);
+    });
+};
+
+const getRightColumn = () => {
+    if ($("#right-column").length < 1) {
+        return;
+    }
+
+    $.get("/popular_list/", (result) => {
+        $("#right-column").empty();
+
+        console.log(result.PopularList);
+        $.each(result.PopularList, (i, val) => {
+            $("#right-column").append($('<li class="mdl-list__item"></li>').append($('<a href="/detail/' + val.ID + '/" class="mdl-list__item-secondary-action"></a>').text(val.Title + " いいね:" + val.BlogCount.GoodCount)));
+        });
+    });
+}

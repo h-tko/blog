@@ -11,7 +11,7 @@ type Blog struct {
 	Body        string
 	IsShow      bool
 	ReleaseDate time.Time
-	BlogCount   BlogCount
+	BlogCount   BlogCount `gorm:"ForeignKey:BlogID"`
 }
 
 func (Blog) TableName() string {
@@ -23,12 +23,18 @@ func NewBlog() *Blog {
 }
 
 func (blog *Blog) FindById(id int) {
-	db.Where("is_show = ?", true).Where("release_date <= now()").Joins("inner join blog_counts on blogs.id = blog_counts.blog_id").First(&blog, id)
+	db.Where("is_show = ?", true).Where("release_date <= now()").First(&blog, id)
+
+	db.Model(&blog).Related(&blog.BlogCount, "BlogCount")
 }
 
 func (blog *Blog) FindPopularList(limit int) []*Blog {
 	var blogs []*Blog
-	db.Where("is_show = ?", true).Where("release_date <= now()").Joins("inner join blog_counts on blogs.id = blog_counts.blog_id").Order("blog_counts.good_count").Find(&blogs)
+	db.Where("is_show = ?", true).Where("release_date <= now()").Joins("inner join blog_counts on blogs.id = blog_counts.blog_id").Order("blog_counts.good_count").Limit(limit).Find(&blogs)
+
+	for _, data := range blogs {
+		db.Model(&data).Related(&data.BlogCount, "BlogCount")
+	}
 
 	return blogs
 }
@@ -40,7 +46,7 @@ func (blog *Blog) FindList(limit int) []*Blog {
 	return blogs
 }
 
-func RegistBlog(blog Blog) {
+func RegistBlog(blog *Blog) {
 	db.NewRecord(blog)
 	db.Create(&blog)
 	db.Save(&blog)

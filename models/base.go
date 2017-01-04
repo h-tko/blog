@@ -28,6 +28,7 @@ func InitDatabase() error {
 	}
 
 	db = dbsource
+	db.LogMode(true)
 
 	return nil
 }

@@ -1,4 +1,8 @@
 {{template "layout_bef" .}}
+<div class="mdl-grid">
+    <a href="/"><< 戻る</a>
+</div>
+
 <div class="app-card-wide mdl-card mdl-shadow--2dp">
     <div class="mdl-card__title">
         <h2 class="mdl-card__title-text">
@@ -9,10 +13,11 @@
         {{.Blog.Body|raw}}
     </div>
     <div class="mdl-card__menu">
-        <button type="button" class="mdl-button mdl-js-button mdl-button--fab mdl-button--colored mdl-button--accent">
+        <button type="button" class="mdl-button mdl-js-button mdl-button--fab mdl-button--colored mdl-button--accent good">
             <i class="material-icons">thumb_up</i>
         </button>
         <span class="fab-count">{{.Blog.BlogCount.GoodCount}}</span>
     </div>
+    <input type="hidden" id="blog_id" value="{{.Blog.ID}}">
 </div>
 {{template "layout_aft" .}}
