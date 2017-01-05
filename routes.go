@@ -6,10 +6,10 @@ import (
 )
 
 func routes(e *echo.Echo) {
-	e.GET("/", TopController{}.Index)
-	e.GET("/detail/:blog_id/", BlogDetailController{}.Detail)
-	e.GET("/write_blog/", WriteController{}.Write)
-	e.POST("/regist_blog/", WriteController{}.Regist)
-	e.GET("/increment_good/", BlogDetailController{}.IncrementGood)
-	e.GET("/popular_list/", RightColumnController{}.PopularList)
+	e.GET("/", new(TopController).Index)
+	e.GET("/detail/:blog_id/", new(BlogDetailController).Detail)
+	e.GET("/write_blog/", new(WriteController).Write)
+	e.POST("/regist_blog/", new(WriteController).Regist)
+	e.GET("/increment_good/", new(BlogDetailController).IncrementGood)
+	e.GET("/popular_list/", new(RightColumnController).PopularList)
 }

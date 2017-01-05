@@ -9,13 +9,21 @@ import (
 )
 
 type WriteController struct {
+	BaseController
 }
 
-func (this WriteController) Write(c echo.Context) error {
-	return c.Render(http.StatusOK, "write.html", map[string]interface{}{"Data": nil})
+func (this *WriteController) Write(c echo.Context) error {
+
+	this.MetaTitle = "TKO技術ブログ|ブログ詳細"
+	this.MetaDescription = "TKO技術ブログです"
+	this.MetaKeywords = "テックブログ,技術ブログ,IT,ブログ"
+	this.MetaH1 = "ブログ登録"
+	this.MetaRobots = "noydir,noodp,noindex,nofollow"
+
+	return this.Render(c, http.StatusOK, "write.html")
 }
 
-func (this WriteController) Regist(c echo.Context) error {
+func (this *WriteController) Regist(c echo.Context) error {
 
 	release_date, err := time.Parse("2006/01/02", c.FormValue("release_date"))
 

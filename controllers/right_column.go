@@ -7,9 +7,10 @@ import (
 )
 
 type RightColumnController struct {
+	BaseController
 }
 
-func (this RightColumnController) PopularList(c echo.Context) error {
+func (this *RightColumnController) PopularList(c echo.Context) error {
 	model := models.NewBlog()
 	popular_list := model.FindPopularList(5)
 
