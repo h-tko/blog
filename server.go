@@ -8,6 +8,7 @@ import (
 	"github.com/pelletier/go-toml"
 	"html/template"
 	"io"
+	"strings"
 )
 
 type Template struct {
@@ -30,6 +31,22 @@ func main() {
 	//    e.Use(middleware.CSRF())
 	e.Use(middleware.Logger())
 	e.Use(middleware.Recover())
+	e.Use(middleware.BasicAuthWithConfig(middleware.BasicAuthConfig{
+		Skipper: func(c echo.Context) bool {
+			if strings.Index(c.Request().RequestURI, "/write_blog/") >= 0 {
+				return false
+			}
+
+			return true
+		},
+		Validator: func(username, password string) bool {
+			if username == "h-tko" && password == "WeJLn0mW" {
+				return true
+			}
+
+			return false
+		},
+	}))
 	e.Pre(middleware.AddTrailingSlash())
 
 	println("regist static dir.")
