@@ -30,14 +30,16 @@
                 </div>
             </header>
             <main class="mdl-layout__content">
-                <h1 style="font-size: 10px; line-height: 0.4em">{{.mh1}}</h1>
-                <div class="page-content">
-                    <div class="mdl-grid">
-                        <div class="mdl-cell mdl-cell--9-col">
+                <div class="mdl-grid">
+                    <div class="mdl-cell mdl-cell--9-col">
+                        <div class="page-content">
+                            <h1 style="font-size: 10px; line-height: 0.4em">{{.mh1}}</h1>
 {{end}}
 {{define "layout_aft"}}
                         </div>
-                        <div class="mdl-cell mdl-cell--3-col">
+                    </div>
+                    <div class="mdl-cell mdl-cell--3-col">
+                        <div class="page-content">
                             {{template "right-column" .}}
                         </div>
                     </div>
