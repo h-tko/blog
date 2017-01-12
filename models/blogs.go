@@ -30,7 +30,7 @@ func (blog *Blog) FindById(id int) {
 
 func (blog *Blog) FindPopularList(limit int) []*Blog {
 	var blogs []*Blog
-	db.Where("is_show = ?", true).Where("release_date <= now()").Joins("inner join blog_counts on blogs.id = blog_counts.blog_id").Order("blog_counts.good_count nulls last").Limit(limit).Find(&blogs)
+	db.Where("is_show = ?", true).Where("release_date <= now()").Joins("inner join blog_counts on blogs.id = blog_counts.blog_id").Order("blog_counts.good_count desc").Limit(limit).Find(&blogs)
 
 	for _, data := range blogs {
 		db.Model(&data).Related(&data.BlogCount, "BlogCount")
