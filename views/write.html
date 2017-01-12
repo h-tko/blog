@@ -9,14 +9,14 @@
         <form name="form-blog">
             <div class="mdl-grid">
                 <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label abs-w-80">
-                    <input class="mdl-textfield__input" type="text" name="title" id="title">
+                    <input class="mdl-textfield__input" type="text" name="title" id="title" value="{{.Blog.Title}}">
                     <label class="mdl-textfield__label" for="title">タイトル</label>
                     <span class="mdl-textfield__error"></span>
                 </div>
             </div>
             <div class="mdl-grid">
                 <div class="mdl-textfield mdl-js-textfield abs-w-80">
-                    <textarea class="mdl-textfield__input" type="text" rows="30" id="body" name="body"></textarea>
+                    <textarea class="mdl-textfield__input" type="text" rows="30" id="body" name="body">{{.Blog.Body}}</textarea>
                     <label class="mdl-textfield__label" for="body">本文</label>
                     <span class="mdl-textfield__error"></span>
                 </div>
@@ -26,7 +26,7 @@
             </div>
             <div class="mdl-grid">
                 <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label ">
-                    <input type="text" class="mdl-textfield__input datepicker" name="release_date" id="release_date">
+                    <input type="text" class="mdl-textfield__input datepicker" name="release_date" id="release_date" value="{{.Blog.ReleaseDate|datestr}}">
                 </div>
             </div>
         </div>
@@ -34,6 +34,7 @@
             <button type="button" class="mdl-button mdl-button--raised mdl-js-button mdl-js-ripple-effect clear">クリア</button>
             <button type="button" class="mdl-button mdl-button--raised mdl-button--colored mdl-js-button mdl-js-ripple-effect regist-blog">登録</button>
         </div>
+        <input type="hidden" name="blog_id" value="{{.Blog.ID}}">
     </form>
 </div>
 {{template "layout_aft" .}}

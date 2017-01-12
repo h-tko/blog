@@ -1,10 +1,11 @@
 package controllers
 
 import (
-	"github.com/h-tko/blog/libraries"
+	"fmt"
 	"github.com/h-tko/blog/models"
 	"github.com/labstack/echo"
 	"net/http"
+	"strconv"
 	"time"
 )
 
@@ -23,6 +24,29 @@ func (this *WriteController) Write(c echo.Context) error {
 	return this.Render(c, http.StatusOK, "write.html")
 }
 
+func (this *WriteController) Edit(c echo.Context) error {
+
+	this.MetaTitle = "TKO技術ブログ|ブログ詳細"
+	this.MetaDescription = "TKO技術ブログです"
+	this.MetaKeywords = "テックブログ,技術ブログ,IT,ブログ"
+	this.MetaH1 = "ブログ編集"
+	this.MetaRobots = "noydir,noodp,noindex,nofollow"
+
+	blog_id, err := strconv.Atoi(c.Param("blog_id"))
+
+	if err != nil {
+		fmt.Printf("%v", err)
+		return err
+	}
+
+	blog := models.NewBlog()
+	blog.FindById(blog_id)
+
+	this.SetResponse("Blog", blog)
+
+	return this.Render(c, http.StatusOK, "write.html")
+}
+
 func (this *WriteController) Regist(c echo.Context) error {
 
 	release_date, err := time.Parse("2006/01/02", c.FormValue("release_date"))
@@ -31,10 +55,25 @@ func (this *WriteController) Regist(c echo.Context) error {
 		panic(err)
 	}
 
-	body := libraries.MarkdownToHtml(c.FormValue("body"))
+	blog_id := c.FormValue("blog_id")
+	body := c.FormValue("body")
 
 	blog := models.Blog{Title: c.FormValue("title"), Body: string(body), IsShow: true, ReleaseDate: release_date}
-	models.RegistBlog(&blog)
+
+	if blog_id != "" {
+		intid, err := strconv.Atoi(blog_id)
+
+		if err != nil {
+			return err
+		}
+
+		blog.ID = uint(intid)
+
+		models.UpdateBlog(&blog)
+	} else {
+
+		models.RegistBlog(&blog)
+	}
 
 	blog_count := models.BlogCount{BlogID: blog.ID}
 	models.RegistBlogCount(&blog_count)

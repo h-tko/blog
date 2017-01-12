@@ -1,4 +1,4 @@
-require('material-design-lite/dist/material.lime-deep_purple.min.css');
+require('material-design-lite/dist/material.indigo-blue.min.css');
 require('material-design-lite/dist/material.min.js');
 require('../css/app.css');
 import hljs from 'highlight.js/lib/index.js';

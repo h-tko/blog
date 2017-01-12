@@ -1,9 +1,9 @@
 package libraries
 
 import (
-    "github.com/russross/blackfriday"
+	"github.com/russross/blackfriday"
 )
 
-func MarkdownToHtml(markdown string) []byte {
-    return blackfriday.MarkdownCommon([]byte(markdown))
+func MarkdownToHtml(markdown []byte) []byte {
+	return blackfriday.MarkdownCommon(markdown)
 }
