@@ -12,6 +12,7 @@
     </head>
 
     <body>
+{{template "ga.html" .}}
         <div class="mdl-layout mdl-js-layout">
             <header class="mdl-layout__header mdl-layout__header-waterfall">
                 <div class="mdl-layout__header-row">
@@ -40,7 +41,7 @@
                     </div>
                     <div class="mdl-cell mdl-cell--3-col">
                         <div class="page-content">
-                            {{template "right-column" .}}
+{{template "right-column" .}}
                         </div>
                     </div>
                 </div>
