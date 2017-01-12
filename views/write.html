@@ -26,7 +26,7 @@
             </div>
             <div class="mdl-grid">
                 <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label ">
-                    <input type="text" class="mdl-textfield__input datepicker" name="release_date" id="release_date" value="{{.Blog.ReleaseDate|datestr}}">
+                    <input type="text" class="mdl-textfield__input datepicker" name="release_date" id="release_date" value="{{if .Blog.ReleaseDate ne ""}}{{.Blog.ReleaseDate|datestr}}{{end}}">
                 </div>
             </div>
         </div>
