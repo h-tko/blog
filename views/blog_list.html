@@ -1,13 +1,14 @@
 {{template "layout_bef" .}}
+<ul class="app-wide-list mdl-list">
 {{range $index, $elem := .BlogList}}
-<a href="/detail/{{$elem.ID}}">
-    <div class="app-card-wide mdl-card mdl-shadow--2dp" style="min-height: 20px;">
-        <div class="mdl-card__title">
-            <h2 class="mdl-card__title-text">
+    <li class="mdl-list__item">
+        <a href="/detail/{{$elem.ID}}">
+            <span class="mdl-list__item-primary-content">
+                <i class="material-icons mdl-list__item-icon">done</i>
                 {{$elem.Title}}{{if $elem.ReleaseDate}}({{$elem.ReleaseDate|datestr}}){{end}}
-            </h2>
-        </div>
-    </div>
-</a>
+            </span>
+        </a>
+    </li>
 {{end}}
+</ul>
 {{template "layout_aft" .}}

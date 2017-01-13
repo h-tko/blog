@@ -1,6 +1,15 @@
-.app-card-wide {
+.app-wide-list {
     width: 90%;
     margin-bottom: 10px;
+}
+
+.app-wide-list li {
+    border-bottom: solid 1px #dfdfdf;
+    margin-bottom: 10px;
+}
+
+.app-wide-list a {
+    text-decoration: none;
 }
 
 .abs-w-80 {
