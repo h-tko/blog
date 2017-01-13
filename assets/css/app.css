@@ -7,3 +7,34 @@
     width: 80%;
 }
 
+.blog-body > h1 {
+    border: solid;
+    padding-left: 8px;
+    border-width: 0px 0px 1px 5px;
+    border-left-color: #08088a;
+    border-bottom-color: #dedede;
+}
+
+.blog-body > h2 {
+    border: solid;
+    padding-left: 5px;
+    border-width: 0px 0px 1px 4px;
+    border-left-color: #08088a;
+    border-bottom-color: #dedede;
+}
+
+.blog-body > h3 {
+    border: solid;
+    padding-left: 3px;
+    border-width: 0px 0px 1px 3px;
+    border-left-color: #08088a;
+    border-bottom-color: #dedede;
+}
+
+.blog-body > h4 {
+    border: solid;
+    padding-left: 2px;
+    border-width: 0px 0px 1px 2px;
+    border-left-color: #08088a;
+    border-bottom-color: #dedede;
+}
