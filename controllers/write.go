@@ -57,8 +57,9 @@ func (this *WriteController) Regist(c echo.Context) error {
 
 	blog_id := c.FormValue("blog_id")
 	body := c.FormValue("body")
+	keywords := c.FormValue("keywords")
 
-	blog := models.Blog{Title: c.FormValue("title"), Body: string(body), IsShow: true, ReleaseDate: release_date}
+	blog := models.Blog{Title: c.FormValue("title"), Body: string(body), Keywords: string(keywords), IsShow: true, ReleaseDate: release_date}
 
 	if blog_id != "" {
 		intid, err := strconv.Atoi(blog_id)

@@ -9,6 +9,7 @@ type Blog struct {
 	gorm.Model
 	Title       string
 	Body        string
+	Keywords    string
 	IsShow      bool
 	ReleaseDate time.Time
 	BlogCount   BlogCount `gorm:"ForeignKey:BlogID"`
