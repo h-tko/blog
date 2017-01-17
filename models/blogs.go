@@ -47,12 +47,11 @@ func (blog *Blog) FindList(limit int) []*Blog {
 	return blogs
 }
 
-func RegistBlog(blog *Blog) {
-	db.NewRecord(blog)
-	db.Create(&blog)
-	db.Save(&blog)
+func (model *Blog) Regist() {
+	db.NewRecord(model)
+	db.Create(&model)
 }
 
-func UpdateBlog(blog *Blog) {
-	db.Save(&blog)
+func (model *Blog) Update() {
+	db.Save(&model)
 }

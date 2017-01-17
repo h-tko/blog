@@ -20,10 +20,9 @@ func NewBlogCount() *BlogCount {
 	return new(BlogCount)
 }
 
-func RegistBlogCount(bc *BlogCount) {
-	db.NewRecord(bc)
-	db.Create(&bc)
-	db.Save(&bc)
+func (model *BlogCount) Regist() {
+	db.NewRecord(model)
+	db.Create(&model)
 }
 
 func (BlogCount) IncrementGood(blog_id uint) int {

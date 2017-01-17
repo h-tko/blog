@@ -13,6 +13,7 @@ type BlogDetailController struct {
 }
 
 func (this *BlogDetailController) Detail(c echo.Context) error {
+	this.BeforeFilter(c)
 
 	blog_id, err := strconv.Atoi(c.Param("blog_id"))
 

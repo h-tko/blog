@@ -1,6 +1,7 @@
 package controllers
 
 import (
+	"github.com/h-tko/blog/models"
 	"github.com/labstack/echo"
 )
 
@@ -12,6 +13,16 @@ type BaseController struct {
 	MetaRobots      string
 
 	response map[string]interface{}
+}
+
+func (this *BaseController) BeforeFilter(c echo.Context) {
+	access_log := models.NewAccessLog()
+	request := c.Request()
+
+	access_log.IpAddress = request.RemoteAddr
+	access_log.UserAgent = request.UserAgent()
+
+	access_log.Regist()
 }
 
 func (this *BaseController) SetResponse(key string, val interface{}) {

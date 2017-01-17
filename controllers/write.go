@@ -70,14 +70,14 @@ func (this *WriteController) Regist(c echo.Context) error {
 
 		blog.ID = uint(intid)
 
-		models.UpdateBlog(&blog)
+		blog.Update()
 	} else {
 
-		models.RegistBlog(&blog)
+		blog.Regist()
 	}
 
 	blog_count := models.BlogCount{BlogID: blog.ID}
-	models.RegistBlogCount(&blog_count)
+	blog_count.Regist()
 
 	return c.JSON(http.StatusOK, "success")
 }

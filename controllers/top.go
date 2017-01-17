@@ -11,6 +11,8 @@ type TopController struct {
 }
 
 func (this *TopController) Index(c echo.Context) error {
+	this.BeforeFilter(c)
+
 	blog := models.NewBlog()
 	blogs := blog.FindList(10)
 
