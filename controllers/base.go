@@ -21,6 +21,7 @@ func (this *BaseController) BeforeFilter(c echo.Context) {
 
 	access_log.IpAddress = request.RemoteAddr
 	access_log.UserAgent = request.UserAgent()
+	access_log.Uri = request.RequestURI
 
 	access_log.Regist()
 }

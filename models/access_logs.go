@@ -8,6 +8,7 @@ type AccessLog struct {
 	gorm.Model
 	IpAddress string
 	UserAgent string
+	Uri       string
 }
 
 func (AccessLog) TableName() string {
