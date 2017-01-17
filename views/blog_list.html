@@ -1,13 +1,15 @@
 {{template "layout_bef" .}}
 <ul class="app-wide-list mdl-list">
 {{range $index, $elem := .BlogList}}
-    <li class="mdl-list__item">
-        <a href="/detail/{{$elem.ID}}">
-            <span class="mdl-list__item-primary-content">
-                <i class="material-icons mdl-list__item-icon">done</i>
-                {{$elem.Title}}{{if $elem.ReleaseDate}}({{$elem.ReleaseDate|datestr}}){{end}}
-            </span>
-        </a>
+    <li class="mdl-list__item mdl-list__item--two-line">
+        <span class="mdl-list__item-primary-content">
+            <i class="material-icons mdl-list__item-icon">done</i>
+            <span>{{$elem.Title}}</span>
+            <span class="mdl-list__item-sub-title">{{$elem.ReleaseDate|datestr}}</span>
+        </span>
+        <span class="mdl-list__item-secondary-content">
+            <a class="mdl-list__item-secondary-action mdl-button mdl-js-button mdl-button--raised mdl-button--colored" href="/detail/{{$elem.ID}}">詳細</a>
+        </span>
     </li>
 {{end}}
 </ul>
