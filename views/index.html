@@ -20,8 +20,8 @@
                     <div class="mdl-layout-spacer"></div>
                 </div>
                 <div class="mdl-layout__tab-bar mdl-js-ripple-effect">
-                    <a href="/" class="mdl-layout__tab is-active">新着</a>
-                    <a href="/category/" class="mdl-layout__tab">カテゴリ別</a>
+                    <a href="/" class='mdl-layout__tab{{if eq .tab "top"}} is-active{{end}}'>新着</a>
+                    <a href="/category/" class='mdl-layout__tab{{if eq .tab "category"}} is-active{{end}}'>カテゴリ別</a>
                 </div>
             </header>
             <main class="mdl-layout__content">
