@@ -21,6 +21,13 @@
     width: 80%;
 }
 
+h4.category {
+    border: solid;
+    padding-left: 12px;
+    border-width: 0px 0px 0px 6px;
+    border-left-color: #008080;
+}
+
 .blog-body > h1 {
     border: solid;
     padding-left: 8px;

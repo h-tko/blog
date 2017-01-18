@@ -22,6 +22,25 @@
                 </div>
             </div>
             <div class="mdl-grid">
+                <div class="mdl-textfield mdl-js-textfield abs-w-80">
+                    <select class="mdl-textfield__input" name="category" id="category">
+{{$Blog := .Blog}}
+{{range $index, $elem := .Categories}}
+    {{if $Blog.Category}}
+        {{if eq $Blog.Category $elem.ID}}
+                        <option value="{{$elem.ID}}" selected>{{$elem.Name}}</option>
+        {{else}}
+                        <option value="{{$elem.ID}}">{{$elem.Name}}</option>
+        {{end}}
+    {{else}}
+                        <option value="{{$elem.ID}}">{{$elem.Name}}</option>
+    {{end}}
+{{end}}
+                    </select>
+                    <label class="mdl-textfield__label" for="category">カテゴリー</label>
+                </div>
+            </div>
+            <div class="mdl-grid">
                 <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label abs-w-80">
                     <input class="mdl-textfield__input" type="text" name="keywords" id="keywords" value="{{.Blog.Keywords}}">
                     <label class="mdl-textfield__label" for="keywords">keywords</label>

@@ -13,4 +13,5 @@ func routes(e *echo.Echo) {
 	e.GET("/increment_good/", new(BlogDetailController).IncrementGood)
 	e.GET("/popular_list/", new(RightColumnController).PopularList)
 	e.GET("/edit_blog/:blog_id/", new(WriteController).Edit)
+	e.GET("/category/", new(CategoryController).Index)
 }

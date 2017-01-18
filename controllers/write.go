@@ -21,6 +21,11 @@ func (this *WriteController) Write(c echo.Context) error {
 	this.MetaH1 = "ブログ登録"
 	this.MetaRobots = "noydir,noodp,noindex,nofollow"
 
+	category := models.NewCategory()
+	categories := category.All()
+
+	this.SetResponse("Categories", categories)
+
 	return this.Render(c, http.StatusOK, "write.html")
 }
 
@@ -31,6 +36,11 @@ func (this *WriteController) Edit(c echo.Context) error {
 	this.MetaKeywords = "テックブログ,技術ブログ,IT,ブログ"
 	this.MetaH1 = "ブログ編集"
 	this.MetaRobots = "noydir,noodp,noindex,nofollow"
+
+	category := models.NewCategory()
+	categories := category.All()
+
+	this.SetResponse("Categories", categories)
 
 	blog_id, err := strconv.Atoi(c.Param("blog_id"))
 
@@ -58,8 +68,13 @@ func (this *WriteController) Regist(c echo.Context) error {
 	blog_id := c.FormValue("blog_id")
 	body := c.FormValue("body")
 	keywords := c.FormValue("keywords")
+	category, err := strconv.Atoi(c.FormValue("category"))
 
-	blog := models.Blog{Title: c.FormValue("title"), Body: string(body), Keywords: string(keywords), IsShow: true, ReleaseDate: release_date}
+	if err != nil {
+		return err
+	}
+
+	blog := models.Blog{Title: c.FormValue("title"), Body: string(body), Keywords: string(keywords), Category: uint(category), IsShow: true, ReleaseDate: release_date}
 
 	if blog_id != "" {
 		intid, err := strconv.Atoi(blog_id)

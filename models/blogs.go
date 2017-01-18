@@ -11,6 +11,7 @@ type Blog struct {
 	Body        string
 	Keywords    string
 	IsShow      bool
+	Category    uint
 	ReleaseDate time.Time
 	BlogCount   BlogCount `gorm:"ForeignKey:BlogID"`
 }
@@ -43,6 +44,13 @@ func (blog *Blog) FindPopularList(limit int) []*Blog {
 func (blog *Blog) FindList(limit int) []*Blog {
 	var blogs []*Blog
 	db.Where("is_show = ?", true).Where("release_date <= now()").Order("release_date desc").Limit(limit).Find(&blogs)
+
+	return blogs
+}
+
+func (blog *Blog) FindListOrderCategory() []*Blog {
+	var blogs []*Blog
+	db.Where("is_show = ?", true).Where("release_date <= now()").Order("category asc, release_date desc").Find(&blogs)
 
 	return blogs
 }
