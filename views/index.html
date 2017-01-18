@@ -3,12 +3,13 @@
 
 <html lang="ja">
     <head>
-        <script type="text/javascript"  src="/static/dist/bundle.js"></script>
-        <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta name="title" content="{{.mt}}">
         <meta name="Description" content="{{.md}}">
         <meta name="Keywords" content="{{.mk}}">
         <meta name="robots" content="{{.mr}}">
+        <script type="text/javascript"  src="/static/dist/bundle.js"></script>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     </head>
 
     <body>
@@ -26,14 +27,14 @@
             </header>
             <main class="mdl-layout__content">
                 <div class="mdl-grid">
-                    <div class="mdl-cell mdl-cell--9-col mdl-cell--12-col-phone">
+                    <div class="mdl-cell mdl-cell--9-col mdl-cell--4-col-phone">
                         <div class="page-content">
                             <h1 style="font-size: 10px; line-height: 0.4em">{{.mh1}}</h1>
 {{end}}
 {{define "layout_aft"}}
                         </div>
                     </div>
-                    <div class="mdl-cell mdl-cell--3-col mdl-cell--12-col-phone">
+                    <div class="mdl-cell mdl-cell--3-col mdl-cell--4-col-phone">
                         <div class="page-content">
 {{template "right-column" .}}
                         </div>
