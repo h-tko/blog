@@ -3,6 +3,7 @@ package controllers
 import (
 	"github.com/h-tko/blog/models"
 	"github.com/labstack/echo"
+	"strings"
 )
 
 type BaseController struct {
@@ -38,6 +39,12 @@ func (this *BaseController) SetResponse(key string, val interface{}) {
 func (this *BaseController) Render(c echo.Context, status int, oFile string) error {
 	if this.response == nil {
 		this.response = make(map[string]interface{})
+	}
+
+	if strings.Index(c.Request().RequestURI, "/category/") > -1 {
+		this.SetResponse("tab", "category")
+	} else {
+		this.SetResponse("tab", "top")
 	}
 
 	this.response["mt"] = this.MetaTitle
