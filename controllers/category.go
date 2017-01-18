@@ -17,6 +17,7 @@ func (this *CategoryController) Index(c echo.Context) error {
 	category := models.NewCategory()
 	categories := category.All()
 	blogs := blog.FindListOrderCategory()
+	setChangeCategoryFlg(blogs)
 
 	this.SetResponse("BlogList", blogs)
 	this.SetResponse("Categories", categories)
@@ -28,4 +29,13 @@ func (this *CategoryController) Index(c echo.Context) error {
 	this.MetaRobots = "noydir,noodp,index,follow"
 
 	return this.Render(c, http.StatusOK, "category.html")
+}
+
+func setChangeCategoryFlg(blogs []*models.Blog) {
+	beforeCategory := uint(0)
+	for _, blog := range blogs {
+		blog.ChangeCategory = beforeCategory != blog.Category
+
+		beforeCategory = blog.Category
+	}
 }
