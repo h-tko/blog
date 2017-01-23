@@ -7,14 +7,13 @@ import (
 
 type Blog struct {
 	gorm.Model
-	Title          string
-	Body           string
-	Keywords       string
-	IsShow         bool
-	Category       uint
-	ReleaseDate    time.Time
-	BlogCount      BlogCount `gorm:"ForeignKey:BlogID"`
-	ChangeCategory bool
+	Title       string
+	Body        string
+	Keywords    string
+	IsShow      bool
+	Category    uint
+	ReleaseDate time.Time
+	BlogCount   BlogCount `gorm:"ForeignKey:BlogID"`
 }
 
 func (Blog) TableName() string {
