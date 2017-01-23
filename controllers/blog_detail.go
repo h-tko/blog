@@ -27,9 +27,9 @@ func (this *BlogDetailController) Detail(c echo.Context) error {
 
 	this.SetResponse("Blog", blog)
 
-	this.MetaTitle = fmt.Sprintf("TKO技術ブログ|%s", blog.Title)
+	this.MetaTitle = fmt.Sprintf("tko blogs|%s", blog.Title)
 	this.MetaDescription = "TKO技術ブログです"
-	this.MetaH1 = fmt.Sprintf("ブログ詳細(%s)", blog.Title)
+	this.MetaH1 = fmt.Sprintf("%s", blog.Title)
 	this.MetaRobots = "noydir,noodp,index,follow"
 
 	if len(blog.Keywords) > 0 {

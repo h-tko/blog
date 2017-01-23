@@ -24,3 +24,10 @@ func (category *Category) All() []*Category {
 
 	return categories
 }
+
+func (category *Category) FindHasData() []*Category {
+	var categories []*Category
+	db.Where("exists (select * from blogs where categories.id = blogs.category and blogs.release_date <= now() and deleted_at is null)").Order("sort asc").Find(&categories)
+
+	return categories
+}

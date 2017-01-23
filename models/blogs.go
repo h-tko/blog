@@ -48,6 +48,13 @@ func (blog *Blog) FindList(limit int) []*Blog {
 	return blogs
 }
 
+func (blog *Blog) FindListByCategory(category uint) []*Blog {
+	var blogs []*Blog
+	db.Where("is_show = ?", true).Where("release_date <= now()").Where("category = ?", category).Order("release_date desc").Find(&blogs)
+
+	return blogs
+}
+
 func (blog *Blog) FindListOrderCategory() []*Blog {
 	var blogs []*Blog
 	db.Where("is_show = ?", true).Where("release_date <= now()").Order("category asc, release_date desc").Find(&blogs)

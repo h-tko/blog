@@ -18,7 +18,7 @@ func (this *TopController) Index(c echo.Context) error {
 
 	this.SetResponse("BlogList", blogs)
 
-	this.MetaTitle = "TKO技術ブログ|ブログ一覧"
+	this.MetaTitle = "tko blogs|ブログ一覧"
 	this.MetaDescription = "TKO技術ブログです"
 	this.MetaKeywords = "テックブログ,技術ブログ,IT,ブログ"
 	this.MetaH1 = "ブログ一覧"

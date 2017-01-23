@@ -1,9 +1,11 @@
 package controllers
 
 import (
+	"fmt"
 	"github.com/h-tko/blog/models"
 	"github.com/labstack/echo"
 	"net/http"
+	"strconv"
 )
 
 type CategoryController struct {
@@ -25,10 +27,45 @@ func (this *CategoryController) Index(c echo.Context) error {
 	blogs := dispCategory(blog_data)
 	setChangeCategoryFlg(blogs)
 
+	left_menu_categories := category.FindHasData()
+	this.SetResponse("CategoryMenu", left_menu_categories)
+
 	this.SetResponse("BlogList", blogs)
 	this.SetResponse("Categories", categories)
 
-	this.MetaTitle = "TKO技術ブログ|カテゴリ別ブログ一覧"
+	this.MetaTitle = "tko blogs|カテゴリ別ブログ一覧"
+	this.MetaDescription = "TKO技術ブログです"
+	this.MetaKeywords = "テックブログ,技術ブログ,IT,ブログ"
+	this.MetaH1 = "カテゴリ別ブログ一覧"
+	this.MetaRobots = "noydir,noodp,index,follow"
+
+	return this.Render(c, http.StatusOK, "category.html")
+}
+
+func (this *CategoryController) One(c echo.Context) error {
+	this.BeforeFilter(c)
+
+	in_category, err := strconv.Atoi(c.Param("category_id"))
+
+	if err != nil {
+		fmt.Printf("%v", err)
+		return err
+	}
+
+	blog := models.NewBlog()
+	category := models.NewCategory()
+	categories := category.All()
+	blog_data := blog.FindListByCategory(uint(in_category))
+	blogs := dispCategory(blog_data)
+	setChangeCategoryFlg(blogs)
+
+	left_menu_categories := category.FindHasData()
+	this.SetResponse("CategoryMenu", left_menu_categories)
+
+	this.SetResponse("BlogList", blogs)
+	this.SetResponse("Categories", categories)
+
+	this.MetaTitle = "tko blogs|カテゴリ別ブログ一覧"
 	this.MetaDescription = "TKO技術ブログです"
 	this.MetaKeywords = "テックブログ,技術ブログ,IT,ブログ"
 	this.MetaH1 = "カテゴリ別ブログ一覧"

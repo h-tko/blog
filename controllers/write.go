@@ -15,7 +15,7 @@ type WriteController struct {
 
 func (this *WriteController) Write(c echo.Context) error {
 
-	this.MetaTitle = "TKO技術ブログ|ブログ詳細"
+	this.MetaTitle = "tko blogs|ブログ詳細"
 	this.MetaDescription = "TKO技術ブログです"
 	this.MetaKeywords = "テックブログ,技術ブログ,IT,ブログ"
 	this.MetaH1 = "ブログ登録"
