@@ -20,7 +20,14 @@ func (this *BaseController) BeforeFilter(c echo.Context) {
 	access_log := models.NewAccessLog()
 	request := c.Request()
 
-	access_log.IpAddress = request.RemoteAddr
+	x_forward_ip := request.Header.Get("X-Forwarded-For")
+
+	if len(x_forward_ip) > 0 {
+		access_log.IpAddress = x_forward_ip
+	} else {
+		access_log.IpAddress = request.RemoteAddr
+	}
+
 	access_log.UserAgent = request.UserAgent()
 	access_log.Uri = request.RequestURI
 
