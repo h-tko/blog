@@ -1,0 +1,156 @@
+{
+    "memo": "274234e2d1e03fe5aaa4d8ce3f93b95c63e34d43aba19c2205a211e82ab99981",
+    "projects": [
+        {
+            "name": "github.com/dgrijalva/jwt-go",
+            "version": "v3.0.0",
+            "revision": "d2709f9f1f31ebcda9651b03077758c1f3a0018c",
+            "packages": [
+                "."
+            ]
+        },
+        {
+            "name": "github.com/jinzhu/gorm",
+            "version": "v1.0",
+            "revision": "316ca8e6a8decf0177eebc8db5443571fce5e944",
+            "packages": [
+                ".",
+                "dialects/postgres"
+            ]
+        },
+        {
+            "name": "github.com/jinzhu/inflection",
+            "branch": "master",
+            "revision": "1c35d901db3da928c72a72d8458480cc9ade058f",
+            "packages": [
+                "."
+            ]
+        },
+        {
+            "name": "github.com/labstack/echo",
+            "version": "v3.0.3",
+            "revision": "8d504c1b699c757b267255c53b3e5219f9974abc",
+            "packages": [
+                ".",
+                "middleware"
+            ]
+        },
+        {
+            "name": "github.com/labstack/gommon",
+            "version": "v0.1.0",
+            "revision": "2d272df536d051e737aea353b86c979d6e88bce0",
+            "packages": [
+                "bytes",
+                "color",
+                "log",
+                "random"
+            ]
+        },
+        {
+            "name": "github.com/lib/pq",
+            "branch": "master",
+            "revision": "67c3f2a8884c9b1aac5503c8d42ae4f73a93511c",
+            "packages": [
+                ".",
+                "hstore"
+            ]
+        },
+        {
+            "name": "github.com/mattn/go-colorable",
+            "version": "v0.0.6",
+            "revision": "ed8eb9e318d7a84ce5915b495b7d35e0cfe7b5a8",
+            "packages": [
+                "."
+            ]
+        },
+        {
+            "name": "github.com/mattn/go-isatty",
+            "version": "v0.0.1",
+            "revision": "3a115632dcd687f9c8cd01679c83a06a0e21c1f3",
+            "packages": [
+                "."
+            ]
+        },
+        {
+            "name": "github.com/pelletier/go-buffruneio",
+            "branch": "master",
+            "revision": "df1e16fde7fc330a0ca68167c23bf7ed6ac31d6d",
+            "packages": [
+                "."
+            ]
+        },
+        {
+            "name": "github.com/pelletier/go-toml",
+            "version": "v0.4.0",
+            "revision": "d464759235b8fd59f8ab4c44807d7c36e1678add",
+            "packages": [
+                "."
+            ]
+        },
+        {
+            "name": "github.com/russross/blackfriday",
+            "branch": "master",
+            "revision": "5f33e7b7878355cd2b7e6b8eefc48a5472c69f70",
+            "packages": [
+                "."
+            ]
+        },
+        {
+            "name": "github.com/shurcooL/sanitized_anchor_name",
+            "branch": "master",
+            "revision": "1dba4b3954bc059efc3991ec364f9f9a35f597d2",
+            "packages": [
+                "."
+            ]
+        },
+        {
+            "name": "github.com/tylerb/graceful",
+            "version": "v1.2.14",
+            "revision": "0e9129e9c6d47da90dc0c188b26bd7bb1dab53cd",
+            "packages": [
+                "."
+            ]
+        },
+        {
+            "name": "github.com/valyala/bytebufferpool",
+            "branch": "master",
+            "revision": "e746df99fe4a3986f4d4f79e13c1e0117ce9c2f7",
+            "packages": [
+                "."
+            ]
+        },
+        {
+            "name": "github.com/valyala/fasttemplate",
+            "branch": "master",
+            "revision": "d090d65668a286d9a180d43a19dfdc5dcad8fe88",
+            "packages": [
+                "."
+            ]
+        },
+        {
+            "name": "golang.org/x/crypto",
+            "branch": "master",
+            "revision": "41d678d1df78cd0410143162dff954e6dc09300f",
+            "packages": [
+                "acme/autocert"
+            ]
+        },
+        {
+            "name": "golang.org/x/net",
+            "branch": "master",
+            "revision": "f2499483f923065a842d38eb4c7f1927e6fc6e6d",
+            "packages": [
+                "context",
+                "context/ctxhttp"
+            ]
+        },
+        {
+            "name": "golang.org/x/sys",
+            "branch": "master",
+            "revision": "d75a52659825e75fff6158388dddc6a5b04f9ba5",
+            "packages": [
+                "unix"
+            ]
+        }
+    ]
+}
