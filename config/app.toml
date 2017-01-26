@@ -7,3 +7,8 @@ port = "5432"
 user = "postgres"
 password = "postgres"
 dbname = "blog"
+
+[cache]
+host = "172.17.0.3"
+port = "6379"
+secret = "tko-blog-tko-0kk"

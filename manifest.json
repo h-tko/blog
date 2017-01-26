@@ -1,7 +1,7 @@
 {
     "dependencies": {
         "github.com/labstack/echo": {
-            "version": "^3.0.3"
+            "branch": "master"
         },
         "github.com/russross/blackfriday": {
             "branch": "master"

@@ -13,7 +13,7 @@
         {{.Blog.Body|m2h|raw}}
     </div>
     <div class="mdl-card__menu">
-        <button type="button" class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-button--colored mdl-button--accent good">
+        <button type="button" class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-button--colored mdl-button--accent good"{{if eq .Voted true}} disabled{{end}}>
             <i class="material-icons">thumb_up</i>
         </button>
         &nbsp;<span class="fab-count">{{.Blog.BlogCount.GoodCount}}</span>
