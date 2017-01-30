@@ -12,14 +12,14 @@ type RightColumnController struct {
 
 func (this *RightColumnController) PopularList(c echo.Context) error {
 	model := models.NewBlog()
-	popular_list := model.FindPopularList(5)
+	popularList := model.FindPopularList(5)
 
-	return c.JSON(http.StatusOK, map[string]interface{}{"PopularList": popular_list})
+	return c.JSON(http.StatusOK, map[string]interface{}{"PopularList": popularList})
 }
 
 func (this *RightColumnController) CategoryChart(c echo.Context) error {
 	model := models.NewBlog()
-	category_counts := model.CategoryCount()
+	categoryCounts := model.CategoryCount()
 
-	return c.JSON(http.StatusOK, map[string]interface{}{"CategoryCounts": category_counts})
+	return c.JSON(http.StatusOK, map[string]interface{}{"CategoryCounts": categoryCounts})
 }

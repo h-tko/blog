@@ -69,10 +69,10 @@ func (blog *Blog) FindListOrderCategory() []*Blog {
 }
 
 func (blog *Blog) CategoryCount() []*CategoryCount {
-	var category_counts []*CategoryCount
-	db.Table("blogs").Select("category, categories.name as name, count(*) as category_count").Group("category, categories.name").Where("is_show = ?", true).Where("release_date <= now()").Joins("inner join categories on blogs.category = categories.id").Scan(&category_counts)
+	var categoryCounts []*CategoryCount
+	db.Table("blogs").Select("category, categories.name as name, count(*) as category_count").Group("category, categories.name").Where("is_show = ?", true).Where("release_date <= now()").Joins("inner join categories on blogs.category = categories.id").Scan(&categoryCounts)
 
-	return category_counts
+	return categoryCounts
 }
 
 func (model *Blog) Regist() {

@@ -42,7 +42,7 @@ func (this *WriteController) Edit(c echo.Context) error {
 
 	this.SetResponse("Categories", categories)
 
-	blog_id, err := strconv.Atoi(c.Param("blog_id"))
+	blogId, err := strconv.Atoi(c.Param("blog_id"))
 
 	if err != nil {
 		fmt.Printf("%v", err)
@@ -50,7 +50,7 @@ func (this *WriteController) Edit(c echo.Context) error {
 	}
 
 	blog := models.NewBlog()
-	blog.FindById(blog_id)
+	blog.FindById(blogId)
 
 	this.SetResponse("Blog", blog)
 
@@ -59,13 +59,13 @@ func (this *WriteController) Edit(c echo.Context) error {
 
 func (this *WriteController) Regist(c echo.Context) error {
 
-	release_date, err := time.Parse("2006/01/02", c.FormValue("release_date"))
+	releaseDate, err := time.Parse("2006/01/02", c.FormValue("release_date"))
 
 	if err != nil {
 		panic(err)
 	}
 
-	blog_id := c.FormValue("blog_id")
+	blogId := c.FormValue("blog_id")
 	body := c.FormValue("body")
 	keywords := c.FormValue("keywords")
 	category, err := strconv.Atoi(c.FormValue("category"))
@@ -74,10 +74,10 @@ func (this *WriteController) Regist(c echo.Context) error {
 		return err
 	}
 
-	blog := models.Blog{Title: c.FormValue("title"), Body: string(body), Keywords: string(keywords), Category: uint(category), IsShow: true, ReleaseDate: release_date}
+	blog := models.Blog{Title: c.FormValue("title"), Body: string(body), Keywords: string(keywords), Category: uint(category), IsShow: true, ReleaseDate: releaseDate}
 
-	if blog_id != "" {
-		intid, err := strconv.Atoi(blog_id)
+	if blogId != "" {
+		intid, err := strconv.Atoi(blogId)
 
 		if err != nil {
 			return err

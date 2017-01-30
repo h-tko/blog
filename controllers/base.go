@@ -17,21 +17,21 @@ type BaseController struct {
 }
 
 func (this *BaseController) BeforeFilter(c echo.Context) {
-	access_log := models.NewAccessLog()
+	accessLog := models.NewAccessLog()
 	request := c.Request()
 
-	x_forward_ip := request.Header.Get("X-Forwarded-For")
+	xForwardIp := request.Header.Get("X-Forwarded-For")
 
-	if len(x_forward_ip) > 0 {
-		access_log.IpAddress = x_forward_ip
+	if len(xForwardIp) > 0 {
+		accessLog.IpAddress = xForwardIp
 	} else {
-		access_log.IpAddress = request.RemoteAddr
+		accessLog.IpAddress = request.RemoteAddr
 	}
 
-	access_log.UserAgent = request.UserAgent()
-	access_log.Uri = request.RequestURI
+	accessLog.UserAgent = request.UserAgent()
+	accessLog.Uri = request.RequestURI
 
-	access_log.Regist()
+	accessLog.Regist()
 }
 
 func (this *BaseController) SetResponse(key string, val interface{}) {

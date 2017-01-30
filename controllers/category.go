@@ -23,12 +23,12 @@ func (this *CategoryController) Index(c echo.Context) error {
 	blog := models.NewBlog()
 	category := models.NewCategory()
 	categories := category.All()
-	blog_data := blog.FindListOrderCategory()
-	blogs := dispCategory(blog_data)
+	blogData := blog.FindListOrderCategory()
+	blogs := dispCategory(blogData)
 	setChangeCategoryFlg(blogs)
 
-	left_menu_categories := category.FindHasData()
-	this.SetResponse("CategoryMenu", left_menu_categories)
+	leftMenuCategories := category.FindHasData()
+	this.SetResponse("CategoryMenu", leftMenuCategories)
 
 	this.SetResponse("BlogList", blogs)
 	this.SetResponse("Categories", categories)
@@ -45,7 +45,7 @@ func (this *CategoryController) Index(c echo.Context) error {
 func (this *CategoryController) One(c echo.Context) error {
 	this.BeforeFilter(c)
 
-	in_category, err := strconv.Atoi(c.Param("category_id"))
+	inCategory, err := strconv.Atoi(c.Param("category_id"))
 
 	if err != nil {
 		fmt.Printf("%v", err)
@@ -55,12 +55,12 @@ func (this *CategoryController) One(c echo.Context) error {
 	blog := models.NewBlog()
 	category := models.NewCategory()
 	categories := category.All()
-	blog_data := blog.FindListByCategory(uint(in_category))
-	blogs := dispCategory(blog_data)
+	blogData := blog.FindListByCategory(uint(inCategory))
+	blogs := dispCategory(blogData)
 	setChangeCategoryFlg(blogs)
 
-	left_menu_categories := category.FindHasData()
-	this.SetResponse("CategoryMenu", left_menu_categories)
+	leftMenuCategories := category.FindHasData()
+	this.SetResponse("CategoryMenu", leftMenuCategories)
 
 	this.SetResponse("BlogList", blogs)
 	this.SetResponse("Categories", categories)

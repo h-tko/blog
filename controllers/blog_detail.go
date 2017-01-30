@@ -18,7 +18,7 @@ func (this *BlogDetailController) Detail(c echo.Context) error {
 
 	this.BeforeFilter(c)
 
-	blog_id, err := strconv.Atoi(c.Param("blog_id"))
+	blogId, err := strconv.Atoi(c.Param("blog_id"))
 
 	if err != nil {
 		fmt.Printf("%v", err)
@@ -26,14 +26,14 @@ func (this *BlogDetailController) Detail(c echo.Context) error {
 	}
 
 	blog := models.NewBlog()
-	blog.FindById(blog_id)
+	blog.FindById(blogId)
 
-	good_blog_ids := session.Get("good_blog_ids")
+	goodBlogIds := session.Get("good_blog_ids")
 	voted := false
 
-	if good_blog_ids != nil {
-		for _, id := range good_blog_ids.([]int) {
-			if id == blog_id {
+	if goodBlogIds != nil {
+		for _, id := range goodBlogIds.([]int) {
+			if id == blogId {
 				voted = true
 			}
 		}
@@ -59,27 +59,27 @@ func (this *BlogDetailController) Detail(c echo.Context) error {
 func (this *BlogDetailController) IncrementGood(c echo.Context) error {
 	session := sessions.Default(c)
 
-	blog_id, err := strconv.Atoi(c.QueryParam("blog_id"))
+	blogId, err := strconv.Atoi(c.QueryParam("blog_id"))
 
 	if err != nil {
 		fmt.Printf("%v", err)
 		return err
 	}
 
-	blog_count := models.NewBlogCount()
-	result_count := blog_count.IncrementGood(uint(blog_id))
+	blogCount := models.NewBlogCount()
+	resultCount := blogCount.IncrementGood(uint(blogId))
 
 	ids := session.Get("good_blog_ids")
-	var good_blog_ids = []int{}
+	var goodBlogIds = []int{}
 
 	if ids != nil {
-		good_blog_ids = append(ids.([]int), blog_id)
+		goodBlogIds = append(ids.([]int), blogId)
 	} else {
-		good_blog_ids = []int{blog_id}
+		goodBlogIds = []int{blogId}
 	}
 
-	session.Set("good_blog_ids", good_blog_ids)
+	session.Set("good_blog_ids", goodBlogIds)
 	session.Save()
 
-	return c.JSON(http.StatusOK, result_count)
+	return c.JSON(http.StatusOK, resultCount)
 }
