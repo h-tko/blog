@@ -15,4 +15,5 @@ func routes(e *echo.Echo) {
 	e.GET("/edit_blog/:blog_id/", new(WriteController).Edit)
 	e.GET("/category/", new(CategoryController).Index)
 	e.GET("/category/:category_id/", new(CategoryController).One)
+	e.GET("/category_chart/", new(RightColumnController).CategoryChart)
 }

@@ -1,11 +1,20 @@
 {{define "right-column"}}
-<div class="mdl-card mld-shadow--2dp line-left">
+<div class="mdl-card mdl-shadow--2dp line-left">
     <div class="mdl-card__title">
         <h2 class="mdl-card__title-text">読まれているブログ</h2>
     </div>
     <div class="mdl-card__actions mdl-card--border">
         <ul class="mdl-list" id="right-column">
         </ul>
+    </div>
+</div>
+
+<div class="mdl-card mdl-shadow--2dp line-left">
+    <div class="mdl-card__title">
+        <h2 class="mdl-card__title-text">投稿カテゴリ</h2>
+    </div>
+    <div class="mdl-card__actions mdl-card--border">
+        <canvas id="category-chart" width="200" height="200"></canvas>
     </div>
 </div>
 {{end}}

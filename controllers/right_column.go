@@ -16,3 +16,10 @@ func (this *RightColumnController) PopularList(c echo.Context) error {
 
 	return c.JSON(http.StatusOK, map[string]interface{}{"PopularList": popular_list})
 }
+
+func (this *RightColumnController) CategoryChart(c echo.Context) error {
+	model := models.NewBlog()
+	category_counts := model.CategoryCount()
+
+	return c.JSON(http.StatusOK, map[string]interface{}{"CategoryCounts": category_counts})
+}

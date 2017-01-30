@@ -5,6 +5,12 @@ import (
 	"time"
 )
 
+type CategoryCount struct {
+	Category      uint
+	Name          string
+	CategoryCount int
+}
+
 type Blog struct {
 	gorm.Model
 	Title       string
@@ -60,6 +66,13 @@ func (blog *Blog) FindListOrderCategory() []*Blog {
 	db.Where("is_show = ?", true).Where("release_date <= now()").Order("category asc, release_date desc").Find(&blogs)
 
 	return blogs
+}
+
+func (blog *Blog) CategoryCount() []*CategoryCount {
+	var category_counts []*CategoryCount
+	db.Table("blogs").Select("category, categories.name as name, count(*) as category_count").Group("category, categories.name").Where("is_show = ?", true).Where("release_date <= now()").Joins("inner join categories on blogs.category = categories.id").Scan(&category_counts)
+
+	return category_counts
 }
 
 func (model *Blog) Regist() {

@@ -9,6 +9,7 @@ import 'jquery-ui/themes/base/core.css';
 import 'jquery-ui/themes/base/theme.css';
 import 'jquery-ui/themes/base/datepicker.css';
 require('highlight.js/styles/solarized-dark.css');
+import Chart from 'chart.js/dist/Chart.min.js';
 
 $(function() {
     hljs.initHighlightingOnLoad();
@@ -68,6 +69,42 @@ const getRightColumn = () => {
         console.log(result.PopularList);
         $.each(result.PopularList, (i, val) => {
             $("#right-column").append($('<li class="mdl-list__item"></li>').append($('<a href="/detail/' + val.ID + '/" class="mdl-list__item-secondary-action"></a>').text(val.Title + " いいね:" + val.BlogCount.GoodCount)));
+        });
+    });
+
+    categoryChart();
+}
+
+const categoryChart = () => {
+    if ($("#right-column").length < 1) {
+        return;
+    }
+
+    $.get("/category_chart/", (result) => {
+        var ctx = document.getElementById("category-chart");
+        var labels = [];
+        var datas = [];
+
+        $.each(result.CategoryCounts, (idx, value) => {
+            labels.push(value.Name);
+            datas.push(value.CategoryCount);
+        });
+
+        new Chart(ctx, {
+            type: 'pie',
+            data: {
+                datasets: [{
+                    data: datas,
+                    backgroundColor: [
+                        "#FF6384",
+                        "#36A2EB",
+                        "#FFCE56",
+                        "#98FB98",
+                    ],
+                    label: "投稿カテゴリ"
+                }],
+                labels: labels
+            },
         });
     });
 }

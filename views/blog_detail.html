@@ -20,19 +20,4 @@
     </div>
     <input type="hidden" id="blog_id" value="{{.Blog.ID}}">
 </div>
-
-<form action="/detail/send_comment/">
-    <div class="app-card-wide mdl-card mdl-shadow--2dp">
-        <div class="mdl-card__title">
-            <h2 class="mdl-card__title-text">コメントを書く</h2>
-        </div>
-        <div class="mdl-card__supporting-text">
-            <textarea name="user_comment" class="mdl-text-field__input" rows="6"></textarea>
-        </div>
-        <div class="mdl-card__actions mdl-card--border">
-            <button type="submit" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">送信</button>
-        </div>
-    </div>
-    <input type="hidden" name="blog_id" value="{{.Blog.ID}}">
-</form>
 {{template "layout_aft" .}}
