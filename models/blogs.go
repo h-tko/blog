@@ -30,7 +30,7 @@ func NewBlog() *Blog {
 	return new(Blog)
 }
 
-func (blog *Blog) FindById(id int) {
+func (blog *Blog) FindByID(id int) {
 	db.Where("is_show = ?", true).Where("release_date <= now()").First(&blog, id)
 
 	db.Model(&blog).Related(&blog.BlogCount, "BlogCount")

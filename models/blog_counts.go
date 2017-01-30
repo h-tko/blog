@@ -25,8 +25,8 @@ func (model *BlogCount) Regist() {
 	db.Create(&model)
 }
 
-func (BlogCount) IncrementGood(blog_id uint) int {
-	blogCount := BlogCount{BlogID: blog_id}
+func (BlogCount) IncrementGood(blogID uint) int {
+	blogCount := BlogCount{BlogID: blogID}
 
 	db.First(&blogCount)
 	blogCount.GoodCount++
