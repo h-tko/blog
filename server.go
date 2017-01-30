@@ -40,11 +40,11 @@ func main() {
 		return
 	}
 
-	cache_host := config.Get("cache.host").(string)
-	cache_port := config.Get("cache.port").(string)
-	cache_secret := config.Get("cache.secret").(string)
+	cacheHost := config.Get("cache.host").(string)
+	cachePort := config.Get("cache.port").(string)
+	cacheSecret := config.Get("cache.secret").(string)
 
-	store, err := sessions.NewRedisStore(16, "tcp", fmt.Sprintf("%s:%s", cache_host, cache_port), "", []byte(cache_secret))
+	store, err := sessions.NewRedisStore(16, "tcp", fmt.Sprintf("%s:%s", cacheHost, cachePort), "", []byte(cacheSecret))
 
 	if err != nil {
 		panic(err)
